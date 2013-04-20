@@ -30,8 +30,8 @@ def analogRead(port):
 
 
 while True:
-    GPIO.output(statusLED, True)
-    print analogRead(light_adc)
-    time.sleep(.125)
-    GPIO.output(statusLED, False)
-    time.sleep(.175)
+    GPIO.output(statusLED, True)   # Status Led On
+    print analogRead(light_adc)    # Print read value
+    time.sleep(.125)               # Wait a little
+    GPIO.output(statusLED, False)  # Status Led Off
+    time.sleep(.175)               # Wait a bit longer

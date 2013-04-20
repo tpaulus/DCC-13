@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-import time
-import datetime
 from Adafruit_LEDBackpack import LEDBackpack
 
 # ===========================================================================
@@ -15,8 +13,8 @@ class SevenSegment:
     disp = None
 
     # Hexadecimal character lookup table (row 1 = 0..9, row 2 = A..F)
-    digits = [ 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F,
-               0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71 ]
+    digits = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F,
+              0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71]
 
     # Constructor
     def __init__(self, address=0x70, debug=False):
@@ -54,33 +52,33 @@ class SevenSegment:
         """
         Write The 'Value' to the display
         """
-        if value >9999:
+        if value > 9999:
             #Maxed OUT!
             value = 9999
         else:
             value = int(value)
 
-        self.writeDigit(0, (value/1000)%10)
-        self.writeDigit(1, (value/100)%10)
-        self.writeDigit(3, (value/10)%10)
-        self.writeDigit(4, value%10)
+        self.writeDigit(0, (value / 1000) % 10)
+        self.writeDigit(1, (value / 100) % 10)
+        self.writeDigit(3, (value / 10) % 10)
+        self.writeDigit(4, value % 10)
 
-    def writeNum(self,value):
-        if value>999:
+    def writeNum(self, value):
+        if value > 999:
             self.writeInt(value)
-        elif value>99:
-            self.writeDigit(0, int(value/100))
-            self.writeDigit(1, (value/10)%10)
-            self.writeDigit(3, value%10, True) #Add Decimal
-            self.writeDigit(4, (value*10)%10)
-        elif value >9:
-            self.writeDigit(0, int(value/10))
-            self.writeDigit(1, value%10, True)
-            self.writeDigit(3, (value*10)%10)
-            self.writeDigit(4, (value*100%10))
+        elif value > 99:
+            self.writeDigit(0, int(value / 100))
+            self.writeDigit(1, (value / 10) % 10)
+            self.writeDigit(3, value % 10, True) #Add Decimal
+            self.writeDigit(4, (value * 10) % 10)
+        elif value > 9:
+            self.writeDigit(0, int(value / 10))
+            self.writeDigit(1, value % 10, True)
+            self.writeDigit(3, (value * 10) % 10)
+            self.writeDigit(4, (value * 100 % 10))
         else:
-            self.writeDigit(0, int(value*10), True)
-            self.writeDigit(1, (value*100)%10)
-            self.writeDigit(3, (value*1000)%10)
-            self.writeDigit(4, (value*10000)%10)
+            self.writeDigit(0, int(value * 10), True)
+            self.writeDigit(1, (value * 100) % 10)
+            self.writeDigit(3, (value * 1000) % 10)
+            self.writeDigit(4, (value * 10000) % 10)
 

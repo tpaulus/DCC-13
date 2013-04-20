@@ -8,22 +8,12 @@ import smbus
 import os
 
 locations = {}
-version = 1
+version = 0
 app_info_folder = '/etc/WeatherUnderground'
 LocationData = app_info_folder + '/locations.conf'
 parameters = app_info_folder + '/parameters.conf'
 boardVersion = '/proc/cpuinfo'
-
-try:
-    with open(boardVersion, 'r') as f:
-        for line in f:
-            if line.startswith('Revision'):
-                version = (1 if line.rstrip()[-1] in ['1', '2'] else 2) - 1
-except IOError:
-    version = 1
-
 lcd = Adafruit_CharLCDPlate(busnum=version)
-print version
 API = WUndergroundAPI.WebAPI()
 lcd.clear()
 lcd.backlight(lcd.ON)
@@ -85,12 +75,16 @@ update = True
 display = 0
 stateChange = False
 json = ''
-wait = 0
+pause = 0
 #Local Functions are below, all others at in WUndergroundAPI.py
 #The following functions need to be preformed locally to avoid LCD conflicts
 
 
 def init():
+    """
+    Display the app info before the app runs
+    :return: None
+    """
     lcd.clear()
     lcd.backlight(lcd.ON)
     lcd.message('Weather Client\nfor Raspberry Pi')
@@ -102,6 +96,10 @@ def init():
 
 
 def locationChanger(origin, locations, location):
+    """
+    changes the location number based on which button was pressed
+    :return: None
+    """
     lcd.clear()
     done = False
     blankScreen = True
@@ -202,9 +200,9 @@ while True:
             break
             #            Jump to location Menu Function
     if not update:
-        wait += 1
+        pause += 1
     else:
-        wait = 0
-    if wait > 10:
+        pause = 0
+    if pause > 10:
         update = True
     time.sleep(.25)

@@ -30,21 +30,20 @@ def analogRead(port):
     return value
 
 
-def movavg(list, length, value):
+def movavg(ave_list, length, value):
     """A function that smooths the results by averaging a list"""
-    #Courtesy Wolf Paulus
-    list.append(value)
-    if length < len(list):
-        del list[0]
-    sum = 0
-    for x in list[:]:
-        sum += x
-    return sum / len(list)
+    ave_list.append(value)
+    if length < len(ave_list):
+        del ave_list[0]
+    value = 0
+    for x in ave_list[:]:
+        value += x
+    return value / len(ave_list)
 
 
 while True:
-    GPIO.output(statusLED, True)
-    segment.writeInt(movavg(l, 4, analogRead(light_adc)))
-    time.sleep(.125)
-    GPIO.output(statusLED, False)
-    time.sleep(.175)
+    GPIO.output(statusLED, True)                                # Status Led On
+    segment.writeInt(movavg(l, 4, analogRead(light_adc)))       # Read analog value and send it to the display
+    time.sleep(.125)                                            # Wait a little
+    GPIO.output(statusLED, False)                               # Status Led off
+    time.sleep(.175)                                            # Wait a bit longer

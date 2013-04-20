@@ -15,7 +15,7 @@ GPIO.setup(led, GPIO.OUT)
 #Set 'led' as and Output
 
 while True:
-    GPIO.output(led, True)  #led On
-    time.sleep(delay)       #wait 'delay' seconds
-    GPIO.output(led, False) #led off
-    time.sleep(delay)      #wait another 'delay' seconds
+    GPIO.output(led, True)   # led On
+    time.sleep(delay)        # wait 'delay' seconds
+    GPIO.output(led, False)  # led off
+    time.sleep(delay)        # wait another 'delay' seconds

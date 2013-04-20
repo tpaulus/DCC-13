@@ -53,6 +53,7 @@ class Scroller():
 
 
 if __name__ == '__main__':
+    #Library Test
     s = raw_input('Enter the string to be separated\n').replace('\n', '')
     tools = Scroller()
     print tools.splitString(s, 16)
